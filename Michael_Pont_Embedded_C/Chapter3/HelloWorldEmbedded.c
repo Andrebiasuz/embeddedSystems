@@ -47,8 +47,8 @@ bit LED_state_G = 0;
 	 {
 	 if (LED_state_G == 1)
 		 {
-				LED_state_G = 0;
-			  LED_pin = 0;
+			LED_state_G = 0;
+			LED_pin = 0;
 	 }
 		else 
 		{
