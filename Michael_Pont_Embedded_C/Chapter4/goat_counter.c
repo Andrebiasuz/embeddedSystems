@@ -1,36 +1,73 @@
+/**********************************************
+
+
+goat_counter(v1.00)
+
+-------------------------------------------------
+"Goat_counter" program for the 8051
+
+-------------------------------------------------*/
+
 #include <Reg52.h>
 
 // Connect switch to this pin
 
-sbit Switch_pin = P1 ^ 0;
+sbit Switch_pin_GLOBAL = P1^0;
 
-// Return values from Switch_Get_Input()
+//Display count in PORT3
+#define COUNT_PORT P3
 
+//define semantic values for pressed buttons
 #define SWITCH_NOT_PRESSED (bit) 0
 #define SWITCH_PRESSED (bit) 1
 
-// Function prototypes
-void SWITCH_Init(void);
-bit SWITCH_Get_Input(const unsigned char DEBOUNCE_PERIOD);
-void DISPLAY_SWITCH_STATUS_Init(void);
-void DISPLAY_SWITCH_STATUS_Update(const bit);
-void DELAY_LOOP_Wait(const unsigned int DELAY_MS);
+// Funtion prototypes
 
-/* --------------------------------------------------------- */
-void main(void) {
+void SWITCH_Init();
+bit SWITCH_GET_INPUT_rising_edge(const unsigned char);
+void DISPLAY_COUNT_ON_OUTPUT_Init(void);
+void DISPLAY_COUNT_ON_OUTPUT_Update(const unsigned char);
+void DELAY_LOOP_Wait(const unsigned int);
 
+/***************************************************************/
 
-    }
-
-/*------------------------------------------------------------*-
-SWITCH_Init()
-Initialisation function for the switch library.
--*------------------------------------------------------------*/
-void SWITCH_Init(void) {
-    Switch_pin = 1; // Use this pin for input
+void main(void) 
+{
+	unsigned char Switch_presses = 0;
+	
+	// Init Functions
+	SWITCH_Init();
+	DISPLAY_COUNT_ON_OUTPUT_Init();
+	
+	Switch_presses = COUNT_PORT;
+	
+	//Superloop
+	
+	while(1) {
+		
+		if (SWITCH_GET_INPUT_rising_edge(30) == SWITCH_PRESSED)
+		{
+			Switch_presses++;
+		}
+		DISPLAY_COUNT_ON_OUTPUT_Update(Switch_presses);
+	}
 }
 
-/*------------------------------------------------------------*-
+// Functions
+
+/**********************************************************
+
+SWITCH_Init()
+INITIALIZATION OF SWITCH PIN SELECTED AS INPUT
+
+**********************************************************/
+
+void SWITCH_Init(){
+		Switch_pin_GLOBAL = 1;
+}
+
+/**********************************************************
+
 SWITCH_Get_Input()
 Reads and debounces a mechanical switch as follows:
 72 Embedded C
@@ -41,56 +78,25 @@ then:
 a. If switch is still pressed, return SWITCH_PRESSED.
 b. If switch is not pressed, return SWITCH_NOT_PRESSED
 See Switch_Wait.H for details of return values.
--*------------------------------------------------------------*/
-bit SWITCH_Get_Input(const unsigned char DEBOUNCE_PERIOD) {
+
+**********************************************************/
+
+bit SWITCH_GET_INPUT_rising_edge(const unsigned char DEBOUNCE_PERIOD) {
     bit Return_value = SWITCH_NOT_PRESSED;
-    if (Switch_pin == 0) {
+    if (Switch_pin_GLOBAL == 0) {
         // Switch is pressed
         // Debounce – just wait...
         DELAY_LOOP_Wait(DEBOUNCE_PERIOD);
         // Check switch again
-        if (Switch_pin == 0) {
+        if (Switch_pin_GLOBAL == 0) {
+	while(Switch_pin_GLOBAL == 0) {
+	}
             Return_value = SWITCH_PRESSED;
         }
     }
     // Now return switch value
     return Return_value;
 }
-
-/* SWITCH_Get_Input_After_Rising_Edge()
-Reads and debounces a mechanical switch as follows:
-1. If switch is not pressed, return SWITCH_NOT_PRESSED.
-2. If switch is pressed, wait for DEBOUNCE_PERIOD (in ms).
-a. If switch is not pressed, return SWITCH_NOT_PRESSED.
-b. If switch is pressed, wait (indefinitely) for
-switch to be released, then return SWITCH_PRESSED
-
-______       HERE VALUE RETURNS->______
------|                           |----|
------|___________________________|
-------------------------------> TIME
--------------------------------------------------------------*/
-
-bit SWITCH_Get_Input_After_Rising_Edge(const unsigned char DEBOUNCE_PERIOD)
-{
-    bit Return_value = SWITCH_NOT_PRESSED;
-    if (Switch_pin == 0) {
-        // Switch is pressed
-        // Debounce – just wait...
-        DELAY_LOOP_Wait(DEBOUNCE_PERIOD);
-        // Check switch again
-        if (Switch_pin == 0) {
-            // Wait until the switch is released.
-            while (Switch_pin == 0)
-                ;
-            Return_value = SWITCH_PRESSED;
-        }
-    }
-    // Now (finally) return switch value
-    return Return_value;
-}
-/*----------------------------
-
 
 /*------------------------------------------------------------*-
 DELAY_LOOP_Wait()
@@ -111,16 +117,16 @@ void DELAY_LOOP_Wait(const unsigned int DELAY_MS) {
 DISPLAY_COUNT_Init()
 Initialisation function for the DISPLAY COUNT library.
 -*------------------------------------------------------------*/
-void DISPLAY_COUNT_Init(void)
+void DISPLAY_COUNT_ON_OUTPUT_Init(void)
 {
-    Count_port = 0x00;
+    COUNT_PORT = 0xF0;
     }
 /*------------------------------------------------------------*-
 DISPLAY_COUNT_Update()
 Simple function to display tByte data (COUNT)
 on LEDs connected to port (Count_Port)
 -*------------------------------------------------------------*/
-void DISPLAY_COUNT_Update(const unsigned char COUNT)
+void DISPLAY_COUNT_ON_OUTPUT_Update(const unsigned char COUNT)
 {
-    Count_port = COUNT;
+    COUNT_PORT = COUNT;
     }
