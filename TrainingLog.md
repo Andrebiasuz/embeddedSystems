@@ -2,4 +2,6 @@
 
 **21/09/2022** - Implemented HelloWorldEmbedded.c in AT89C52 chip in Proteus PATH: Michael_Pont_Embedded_C/Chapter3/Proteus/
 
+**22/09/2022** - PROTEUS implementation of Goat_counter example
 
+**23/09/2022** - Code implementation of Goat_counter example
