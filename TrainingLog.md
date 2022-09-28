@@ -5,3 +5,5 @@
 **22/09/2022** - PROTEUS implementation of Goat_counter example
 
 **23/09/2022** - Code implementation of Goat_counter example
+
+**27/09/2022** - Theory reading of delays using Counters
