@@ -6,4 +6,6 @@
 
 **23/09/2022** - Code implementation of Goat_counter example
 
-**27/09/2022** - Theory reading of delays using Counters
+**26/09/2022** - Chapter 5 reading - Adding structure to code
+
+**27/09/2022** - Chapter 6 reading - delays using TIMER0 / TIMER1 
