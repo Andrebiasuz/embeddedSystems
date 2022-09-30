@@ -1,30 +1,23 @@
 
-Software para simulação de 8051 - https://www.keil.com/demo/eval/c51.htm
+Quando o assunto é FreeRTOS, eu recomendo o livro do próprio criador, que infelizmente nao existe mais impresso:
+Free RTOS Book and Reference Manual https://www.freertos.org/Documentation/RTOS_book.html
 
-___________________________________________________________________________________________
+Já ouvi falar muito bem desse livro aqui, mas ainda não conseguir por as mãos nele:
+Hands-On RTOS with Microcontrollers: Building real-time embedded systems using FreeRTOS, STM32 MCUs, and SEGGER debug tools: Amazon.co.uk: Amos, Brian: 9781838826734: Books
+
+FreeRTOS é um mundo de coisas e é fácil se perder nisso sem antes ter uma base sólida, por isso como livro de referencia sobre sistemas operacionais em geral, eu sempre recomendo o clássico: 0133592480.pdf (csc-knu.github.io)
+
+
+Software para simulação de 8051 - https://www.keil.com/demo/eval/c51.htm
 
 Fala André,
 
-Nada contra o ESP, fiz um projeto com ele e achei uma plataforma razoavelmente boa, o pecado da espressif na minha opinião é não disponibilizar debugger nas placas deles.
-Outra placa muito legal, que vc pode até usar a raspberry como debugger, é o PI Pico, são dois cortex M0 no chip com uma "glue logic" bem interessante, acho que vale a pena considerar ela também como plataforma de estudo.
+Forum para embedded things http://www.sonsivri.to/
 
-Sobre o simulador, eu usei muito o proteus pra isso, mas infelizmente eu usava a versão pirata...
-Como estou no trabalho agora, fica dificil de procurar, mas dá uma olhada no http://www.sonsivri.to/, chegando em casa eu vou tentar achar tbm.
-
-Falando em plataformas de simulação, já ouviu falar do Wokwi - Online Arduino and ESP32 Simulator?
+plataforma de simulação: Wokwi - Online Arduino and ESP32 Simulator?
 Lá da pra simular tanto a Pico, como esp32 e arduino. O que alivia um pouco a pressão inicial de comprar uma placa e/ou debugger.
 
-Depois me fala o que vc acha.
-
-___________________________________________________________________________________________
-
-On Mon, Sep 12, 2022 at 4:41 PM Emerson Beserra <emersonblima@gmail.com> wrote:
-Oi André,
- 
-Aqui está o material que eu prometi:
- 
 Esse é o livro de Embedded C: http://www.ecpe.nu.ac.th/ponpisut/22323006-Embedded-c-Tutorial-8051.pdf
- 
 O cara é muito bom e vai te dar uma fortalecida nos fundamentos tanto de C como de embedded.
  
 Sobre os blogs da galera da área, admito que ultimamente tenho ficado meio decepcionado com a galera que anda escrevendo, mas tem um pessoal muito bom na ativa
