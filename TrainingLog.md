@@ -9,3 +9,7 @@
 **26/09/2022** - Chapter 5 reading - Adding structure to code
 
 **27/09/2022** - Chapter 6 reading - delays using TIMER0 / TIMER1 
+
+**13/10/2022** - Implementing "LED_blinking" concept with TIMER0.  PATH: Michael_Pont_Embedded_C/Chapter6/LED_blinking_8051_timer0
+
+
