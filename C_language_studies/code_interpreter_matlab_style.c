@@ -151,7 +151,5 @@ void help_script(){
     printf("\nHELP PAGE:\n\n\tRUN - run the interpreter.\n\tRUN SOUND - run the interpreter with ""beeps"".\n\tREP - sets the number of repetitions of a phrase previously saved with the TXT command. Receives as argument the desired number of repetitions.\n\tTXT - command for entering a new phrase. The argument is the text phrase you want the interpreter to run for the number of repetitions set.\nCLEAR - clears the console screen.\n\tCLEAR ALL - clears the screen and restores variables.\n\tEXIT - terminates the interpreter.\n\tHELP - displays the current interpreter version and a brief explanation of its commands.\n");
 }
 
-
-
 /* ========================================================================= */
 /* --- End of Program --- */
