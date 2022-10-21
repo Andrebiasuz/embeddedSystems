@@ -97,7 +97,6 @@ void menu_selector()
         {
             //static unsigned int run_repetitions = 1;
             printf("Enter interpreter repetitions: ");
-           // while(1){
             scanf("%u", &run_repetitions);
             printf("\n");
         }   
@@ -106,8 +105,6 @@ void menu_selector()
             printf("Enter desired text: ");
             get_text(interpreter_text); 
             puts(interpreter_text);
-    
-            
         }   
         else if (!strcmp("CLEAR", str))
         {
