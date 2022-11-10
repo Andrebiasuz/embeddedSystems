@@ -21,8 +21,8 @@ Design a C memory stack that contains 16 levels, where each level will store one
 #define STACK_LEVELS 16
 /* ========================================================================= */
 /* --- Global variables --- */
-// values has to be only one byte long, then lets store in char. 
 int overflow_flag = 0;
+// values has to be only one byte long, then lets store in char.
 char value = 0;
 // declare pointers. 
 char *ptr1, *ptr2; // ptr1 is the base stack , ptr2 is the adress of the current stack in the memory stack
@@ -60,8 +60,9 @@ int main()
 
     stack_is_full();
     menu();
-    
+  
     }
+   
     return 0;
 }
 
@@ -174,6 +175,7 @@ void push(){
     puts("");
     
 }
+
 // check if stack is full (STACK OVERFLOW)
 void stack_is_full(){
 
@@ -189,7 +191,6 @@ void stack_is_full(){
         
     
 }
-// check if stack is empty
 
 /* ========================================================================= */
 /* --- End of Program --- */
