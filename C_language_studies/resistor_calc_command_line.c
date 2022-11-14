@@ -4,8 +4,6 @@ Example: you type ohm 12 1 15 2 5 0.001
 And the result will be printed in the following format
 Resistors: 12.0 | 7.5 | 5000.0 | Ohms
 
-    Start : 14/11
-    End: 
     Autor: Eng. André Biasuz
     Date:  November 2022
 
