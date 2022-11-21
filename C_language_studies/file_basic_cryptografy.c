@@ -1,4 +1,4 @@
-/* ============================================================================
+/* ===========================================================================
 Proposed Exercise: Develop the design of a program to encrypt text files, that moves the characters typed 3 positions forward. Example:
 
 Original message: Curso de C
