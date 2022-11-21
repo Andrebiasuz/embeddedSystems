@@ -1,4 +1,4 @@
-/* ============================================================================
+/* ===========================================================================
     Develop the design of an interpreter for the following instructions:
     RUN - run the interpreter.
     RUN SOUND - run the interpreter with "beeps".
