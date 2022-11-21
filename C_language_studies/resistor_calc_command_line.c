@@ -1,4 +1,4 @@
-/* ============================================================================
+/* ===========================================================================
 write a program that you type ohm followed by the voltage and current parameters, and the resistance value is calculated, remembering that 𝑅=𝑉𝐼
 Example: you type ohm 12 1 15 2 5 0.001
 And the result will be printed in the following format
