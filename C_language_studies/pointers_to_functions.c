@@ -1,4 +1,4 @@
-/* ============================================================================
+/* ===========================================================================
 The protocol function  implements a protocol that checks two operands. If the first operand is higher, the function returns an 'H' for high, otherwise it returns an 'L' for low. Implement a function that will receive two integer operands and the protocol function as parameter, interpreting the protocol correctly. The function will present the following output:
 "Protocol result: H" for when the first operand is greater. Otherwise: "Protocol result: L"
     Autor: Eng. André Biasuz
