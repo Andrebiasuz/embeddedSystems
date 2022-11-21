@@ -32,9 +32,10 @@ Encryption removed: Curso de C
 
 /* ========================================================================= */
 /* --- Prototypes --- */
-FILE *file_create(const char *name);
-void file_write(FILE *file_name);
-void file_destroy_contents(char *file_name);
+FILE *open_file(char* filename, char* mode);
+void file_write(char *file_name);
+FILE *crypto_3_ASCII(char* input_file_name, char* output_file_name);
+//void file_destroy_contents(char *file_name);
 /* ========================================================================= */
 /* --- Main routine --- */
 
@@ -42,52 +43,69 @@ int main(int argc, char *argv[])
 {    
   //char string_to_file[256];
   
-  char file1_name[30] = "gtro.txt";
+  char file1_name[30] = "crypto.txt";
+  char file2_name[30] = "decoded.txt";    
+
+  FILE *input = open_file(file1_name,"a");
+  FILE *output = open_file(file2_name, "a");  
+
     
-  FILE *crypto1 = file_create(file1_name);
-  file_write(crypto1);
-  file_destroy_contents(file1_name);
+  file_write("crypto.txt");
+  file_write("decoded.txt");
+  crypto_3_ASCII("crypto.txt", "decoded.txt");
 }
 
 /* ========================================================================= */
 /* --- Functions' development --- */
- FILE *file_create(const char *name) {
-
-     
-    FILE *p1 = fopen(name, "a+");
-
-    if (p1 == NULL) {
-        puts("Error creating file");
-        system("pause");
+FILE *open_file(char* filename, char* mode)
+{
+    FILE *f;
+    f = fopen(filename, mode);
+    if(!f)
+    {
+        perror(filename);
         exit(0);
-    } 
+    }
 
-     puts("File created successfully");
-     //fclose(p1);
-     return p1;
- }
-
-void file_write(FILE *file_name) {
-    char content[256];
-
-    fgets(content, sizeof(content), stdin);
-    
-   // fopen(file_name, "r+");
-
-    fprintf(file_name, "%s", content);
-
-    fclose(file_name);
+   // fclose(f);
 }
 
-void file_destroy_contents(char *file_name){
+void file_write(char *file_name) {
+    
+    char content[256];
+    FILE *f1 = fopen(file_name, "a");
+    
+    fgets(content, sizeof(content), stdin);
+      
+    fprintf(f1 , "%s", content);
+
+    //fclose(f1);
+}
+
+/*void file_destroy_contents(char *file_name){
 
     char *result = malloc(strlen(file_name) + strlen("folder//") + 1);
     strcat(result, "folder//");
     strcat(result, file_name);
     printf("%s", result);
     fopen(result, "w");
-    
+}*/
 
+FILE *crypto_3_ASCII(char* input_file_name, char* output_file_name) {
+    FILE *input,*output;
+    
+    input = open_file(input_file_name,"r");
+    output = open_file(output_file_name, "a");
+
+    int ch; // char to get the value and also serve as EOF tag
+
+    while((ch = fgetc(input)) != EOF) {
+        fputc (ch, output);
+    }
+
+    //fclose(input);
+    //fclose(output);    
 }
+
 /* ========================================================================= */
 /* --- End of Program --- */
