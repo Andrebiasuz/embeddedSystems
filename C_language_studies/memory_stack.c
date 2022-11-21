@@ -1,4 +1,4 @@
-/* ============================================================================
+/* ===========================================================================
 Design a C memory stack that contains 16 levels, where each level will store one byte. To show the stack, the addresses and data must be presented in hexadecimal format.
     Version control: 10.11.2022 - Version 0 
     Autor: Eng. André Biasuz
