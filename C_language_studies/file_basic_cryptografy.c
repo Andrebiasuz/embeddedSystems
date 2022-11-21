@@ -9,13 +9,11 @@ Develop a software to remove the encryption and generate a new file with the ori
 Encrypted message: Fxuvr#gh#F
 Encryption removed: Curso de C
 
-    Start : 17/11
-    End: 
-    Autor: Eng. André Biasuz
-    Date:  November 2022
+Autor: Eng. André Biasuz
+Date:  November 2022
 
  KNOWN INTERATIONS TO FOLLOW AFTER STABLE BUILD:
-- 
+    - ALLOW MORE THAN ONE-LINE INPUTS
 ============================================================================ */
 
 /* --- Libraries  --- */
@@ -34,7 +32,7 @@ Encryption removed: Curso de C
 /* --- Prototypes --- */
 FILE *open_file(char* filename, char* mode);
 void file_write(char *file_name);
-FILE *crypto_3_ASCII(char* input_file_name, char* output_file_name);
+void *crypto_3_ASCII(char* input_file_name, char* output_file_name);
 //void file_destroy_contents(char *file_name);
 /* ========================================================================= */
 /* --- Main routine --- */
@@ -45,19 +43,21 @@ int main(int argc, char *argv[])
   
   char file1_name[30] = "crypto.txt";
   char file2_name[30] = "decoded.txt";    
-
-  FILE *input = open_file(file1_name,"a");
-  FILE *output = open_file(file2_name, "a");  
-
-    
-  file_write("crypto.txt");
-  file_write("decoded.txt");
-  crypto_3_ASCII("crypto.txt", "decoded.txt");
+  
+  file_write(file1_name);
+  crypto_3_ASCII(file1_name, file2_name);
 }
 
 /* ========================================================================= */
 /* --- Functions' development --- */
+
+/**
+ * OPENS A FILE 
+ * PARAMETERS : name of file (char) , mode of file opening (char)
+ * RETURNS : FILE pointer. 
+**/
 FILE *open_file(char* filename, char* mode)
+        
 {
     FILE *f;
     f = fopen(filename, mode);
@@ -67,45 +67,57 @@ FILE *open_file(char* filename, char* mode)
         exit(0);
     }
 
-   // fclose(f);
+    return f;
 }
 
+/**
+ * WRITES INTO TXT FILE FROM STDIN
+ * PARAMETERS : name of file (char)
+ * RETURNS : NULL 
+**/
 void file_write(char *file_name) {
     
+    // string and file pointer declaration
     char content[256];
     FILE *f1 = fopen(file_name, "a");
-    
+
+    // gets ONE Line string from stdin
     fgets(content, sizeof(content), stdin);
-      
+
+    // points stdin to file and prints it
     fprintf(f1 , "%s", content);
 
-    //fclose(f1);
+    // close the file
+    fclose(f1);
 }
 
-/*void file_destroy_contents(char *file_name){
+/**
+ * GETS CONTENT FROM INPUT FILE AND CRIPTOGRAFS TO OUTPUT BY SHIFTING THE CHARACTER 3 POSITIONS FORWARD    * IN THE ASCII TABLE
+ * PARAMETERS : name of input file (char) ,  name of output file (char)
+ * RETURNS : VOID
+**/
+void *crypto_3_ASCII(char* input_file_name, char* output_file_name) {
+    //file pointer declaration
+    FILE *input,*output; 
 
-    char *result = malloc(strlen(file_name) + strlen("folder//") + 1);
-    strcat(result, "folder//");
-    strcat(result, file_name);
-    printf("%s", result);
-    fopen(result, "w");
-}*/
-
-FILE *crypto_3_ASCII(char* input_file_name, char* output_file_name) {
-    FILE *input,*output;
-    
+    // open input file to read contents
     input = open_file(input_file_name,"r");
+
+    // open output file to write(append) cryptograph contents
     output = open_file(output_file_name, "a");
 
-    int ch; // char to get the value and also serve as EOF tag
+    // char to get the value and also serve as EOF tag
+    int ch; 
 
+    // sweeps the characters in input file and prints in output file the input value shifted 
+    // 3 values in the ASCII table
     while((ch = fgetc(input)) != EOF) {
-        fputc (ch, output);
+        fputc (ch + 3, output);
     }
 
-    //fclose(input);
-    //fclose(output);    
+    // close the files
+    fclose(input);
+    fclose(output);    
 }
-
 /* ========================================================================= */
 /* --- End of Program --- */
