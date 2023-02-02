@@ -133,7 +133,7 @@ void log_values_buffer_float (float arr[], int arr_lenght) {
             for (int i = 0 ; i < arr_lenght; i++) {
                 printf("\nInput temperature %d: ", i + 1);
                 scanf("%f", &arr[i]);    
-        }    
+        } 
     }
     
 }
