@@ -23,7 +23,7 @@ Date:  Mar 2023
 
 /* ========================================================================= */
 /* --- Constants and Macros --- */
-
+#define FILE_NAME "protocol.txt"
 /* ========================================================================= */
 /* --- Global variables --- */
 /* ========================================================================= */
@@ -36,6 +36,11 @@ unsigned char unit();
 unsigned char errorFlag();
 void print_2_byte(unsigned int reg);
 char *time_stamp();
+FILE *open_file_check_error(char* file_name , char* file_open_id);
+void write_in_file_log(char* file_name, char* message, unsigned long size_message);
+char *binarytochar(unsigned int byte) ;
+void write_in_file_header(char* file_name);
+void string_manipulation();
 /* ========================================================================= */
 /* --- Main routine --- */
 
@@ -47,10 +52,14 @@ int main(int argc, char *argv[])
     unsigned char byte = 0x00;
     unsigned char protocol_default_session = 0x0A;
     unsigned int full_message = 0x00;
-    unsigned int full_message_mask = 0xFFFF;
     char ch ;
+    FILE *f;
+    char stringb[20];
+    char string_file[32];
+
+    write_in_file_header(FILE_NAME);
     
-    while(/* insert ESC logic */) {
+    while(1) {
               
     Temperature = getTemperatureValue();  
     isNegative = negative_test(Temperature);
@@ -59,12 +68,16 @@ int main(int argc, char *argv[])
     error_bit = errorFlag(); 
    
     full_message = protocol_default_session << 12 | error_bit << 10 | isNegative << 9 | unit_bit << 8 | byte;
-    printf(" Timestamp: %s ",time_stamp());
-        
-    print_2_byte(full_message);
-    puts("");
+    
+    string_manipulation(stringb, byte, string_file);
+    
+    write_in_file_log(FILE_NAME, string_file, sizeof(string_file)/sizeof(string_file[0]));
 
     sleep(2);
+        
+    memset(stringb,0,strlen(stringb));
+    memset(binarytochar(byte),0,strlen(binarytochar(byte))); 
+    memset(string_file,0,strlen(string_file));
     };
     
 }
@@ -149,6 +162,69 @@ char *time_stamp(){
     sprintf(timestamp,"%04d%02d%02d%02d%02d%02d", tm->tm_year+1900, tm->tm_mon, 
         tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
     return timestamp;
+}
+
+FILE *open_file_check_error(char* file_name , char* file_open_id) {
+    
+    FILE *f;
+    
+    f = fopen(file_name , file_open_id);
+    
+    if (f == NULL){
+        puts("Error");
+        system("pause");
+        exit(-1);
+    } 
+
+    return f;
+    
+}
+
+void write_in_file_log(char* file_name, char* message, unsigned long size_message){
+    FILE *f;
+
+    f = open_file_check_error(file_name, "a");
+    fwrite(message,size_message,sizeof(char),f);
+
+    fwrite("\n",1,sizeof(char),f);
+    
+    fclose(f);
+}
+
+void write_in_file_header(char* file_name){
+    FILE *f;
+
+    f = open_file_check_error(file_name, "a");
+
+    fwrite("Time\t\t\tBinary\n\n",14,sizeof(char),f);
+    
+    fclose(f);
+}
+
+char *binarytochar(unsigned int byte) {
+    char *string = (char *)malloc(sizeof(char) * 40);
+    register int i;
+    for(i=15; i>=0 ;i--) 
+        {
+        if ((byte>>i)&1) 
+            {  
+            string[i] = '1';
+                }
+        else {
+            string[i] = '0';
+                 }
+        }
+    string[16] = 'b';
+    return string;
+      
+}
+
+void string_manipulation(char* stringb, unsigned int byte, char* string_file) {
+    
+    strcpy(stringb, binarytochar(byte)); 
+    strcpy(string_file, time_stamp());        
+    strcat(string_file, "\t");
+    strcat(string_file, stringb);
 }
 /* ========================================================================= */
 /* --- End of Program --- */
