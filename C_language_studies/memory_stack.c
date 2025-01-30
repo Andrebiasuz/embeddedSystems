@@ -66,7 +66,6 @@ int main()
     return 0;
 }
 
-
 /* ========================================================================= */
 /* --- Functions' development --- */
 
@@ -74,8 +73,7 @@ int main()
 void menu(){
 
     char opt[256];
-    char *endptr;
-    
+    char *endptr;    
     double switch_opt;
     int opt_int = 0;
     puts("************Menu*************");
@@ -83,9 +81,7 @@ void menu(){
     puts("1 - Print stack");
     puts("2 - Pop value from stack");
     puts("3 - Insert value in stack");
-    puts("4 - Exit");
-
-    
+    puts("4 - Exit");   
     printf(">>>> ");
     fgets(opt,20,stdin);         //#input from stdin stream
     switch_opt = strtod(opt, &endptr);
@@ -94,8 +90,7 @@ void menu(){
  
     switch(opt_int){
         case 1:  {
-            print_stack();
-                
+            print_stack();               
             break;
         }
         case 2:  {
@@ -103,7 +98,7 @@ void menu(){
             break;
         }
         case 3:  {
-            if (overflow_flag == 1) puts("Stack is overflowed, you have to pop something to insert anything");
+            if (overflow_flag) puts("Stack is overflowed, you have to pop something to insert anything");
             else push();
             break;
         }
@@ -119,7 +114,6 @@ void menu(){
 }
 
 
-// print stack
 void print_stack(){
     unsigned char i = 0;
     
@@ -128,6 +122,7 @@ void print_stack(){
     }
     puts("");
 }
+
 // pop value (LIFO)
 char pop(){
     
@@ -140,6 +135,7 @@ char pop(){
     *ptr2 = NULL;
     
 }
+
 // insert value (LIFO)
 void push(){
     char inserted_value = 0;

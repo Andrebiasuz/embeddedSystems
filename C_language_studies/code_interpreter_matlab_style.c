@@ -78,7 +78,7 @@ void menu_selector()
     
     while(1) 
         {
-        strcpy(str, "");
+        strcpy(str, " ");
         get_text(str);
     
         if (!strcmp("RUN", str))
